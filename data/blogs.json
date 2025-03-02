@@ -1,0 +1,14 @@
+[
+	{
+	  "id": 1,
+	  "title": "Sample Blog 1",
+	  "content": "This is a sample blog content.",
+	  "user": "demo-user"
+	},
+	{
+	  "id": 2,
+	  "title": "Sample Blog 2",
+	  "content": "This is another blog content.",
+	  "user": "demo-user"
+	}
+      ]

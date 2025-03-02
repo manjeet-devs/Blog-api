@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "email": "admin@example1.com",
+    "password": "$2b$10$Y4AB5xUih5FqevjPkSi.muftF4EvzDG/yqZztSp2vsFClgKttxyFW",
+    "createdAt": "2025-03-02T11:22:55.798Z"
+  },
+  {
+    "id": 2,
+    "email": "admin@example.com",
+    "password": "$2b$10$zcbA2PpZGKMCedgZMTSYxOWTIni0tIb0Zcc3EE9RZl4KXkmW9d4JC",
+    "createdAt": "2025-03-02T11:23:21.456Z"
+  }
+]
