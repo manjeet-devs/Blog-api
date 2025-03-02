@@ -10,5 +10,7 @@ router.post('/login', loginUser);
 router.get('/userinfo', protect, (req, res) => {
   res.json(req.user); 
 });
-
+router.get('/userinfo', protect, (req, res) => {
+  res.json(req.user); 
+});
 module.exports = router;
