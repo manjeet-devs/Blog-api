@@ -10,5 +10,11 @@
     "email": "admin@example.com",
     "password": "$2b$10$zcbA2PpZGKMCedgZMTSYxOWTIni0tIb0Zcc3EE9RZl4KXkmW9d4JC",
     "createdAt": "2025-03-02T11:23:21.456Z"
+  },
+  {
+    "id": 3,
+    "email": "mk@gmail.com",
+    "password": "$2b$10$bI4UcUs3FeDeBq/hsh9j9eneNkD3qd079PULytmwO1AVDNr5XaAFW",
+    "createdAt": "2025-03-02T17:18:56.969Z"
   }
 ]

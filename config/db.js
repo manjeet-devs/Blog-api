@@ -1,19 +1,13 @@
-const mongoose = require('mongoose');
-const fs = require('fs');
+const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectDB = async () => {
-  if (process.env.USE_DB_CONNECTION === 'true') {
-    try {
-      await mongoose.connect(process.env.MONGO_URI, {
-        dbName: process.env.DB_NAME || 'defaultDB',
-      });
-      console.log("MongoDB connected");
-    } catch (err) {
-      console.error("Error connecting to MongoDB:", err);
-      process.exit(1);
-    }
-  } else {
-    console.log("Using JSON data instead of MongoDB");
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("✅ MongoDB Connected");
+  } catch (error) {
+    console.error("❌ MongoDB Connection Failed:", error);
+    process.exit(1);
   }
 };
 

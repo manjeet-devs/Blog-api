@@ -1,50 +1,16 @@
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const path = require('path');
+const jwt = require("jsonwebtoken");
 
-const usersFilePath = path.join(__dirname, '../data/users.json');
+const authMiddleware = (req, res, next) => {
+  const token = req.header("Authorization");
+  if (!token) return res.status(401).json({ message: "Access Denied" });
 
-const useMongoDB = process.env.USE_DB_CONNECTION === 'true';
-
-let User;
-
-if (useMongoDB) {
-  User = require('../models/User');  
-}
-
-const protect = async (req, res, next) => {
-  let token;
-
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
-    try {
-      token = req.headers.authorization.split(' ')[1]; // Extract token
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-      if (useMongoDB) {
-        const user = await User.findById(decoded.userId);
-        if (!user) {
-          return res.status(401).json({ message: 'User not found' });
-        }
-        req.user = user;
-      } else {
-        const users = JSON.parse(fs.readFileSync(usersFilePath, 'utf8'));
-        const user = users.find(user => user.id === decoded.userId);
-        if (!user) {
-          return res.status(401).json({ message: 'User not found' });
-        }
-        req.user = user;
-      }
-
-      next();
-    } catch (err) {
-      res.status(401).json({ message: 'Not authorized, token failed' });
-    }
-  }
-
-  if (!token) {
-    res.status(401).json({ message: 'Not authorized, no token' });
+  try {
+    const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ message: "Invalid Token" });
   }
 };
 
-module.exports = { protect };
+module.exports = authMiddleware;
