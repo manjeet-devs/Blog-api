@@ -39,19 +39,34 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.verifyToken = (req, res, next) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized: No token provided" });
-  }
-
+exports.verifyToken = async (req, res) => {
   try {
-    const decoded = jwt.verify(token, "your-secret-key");
-    req.user = decoded;
-    next();
+    const token = req.cookies.token; 
+    if (!token) {
+      return {};
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return {};
+    }
+    
+    return user; 
   } catch (error) {
-    res.status(401).json({ message: "Invalid token" });
+    return {}; 
   }
+};
+
+
+exports.logout = async(req, res) =>{
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: false, // Set to true in production (HTTPS)
+    sameSite: "Strict",
+  });
+
+  res.json({ message: "Logged out successfully" });
 };
 
