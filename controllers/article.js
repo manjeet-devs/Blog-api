@@ -20,6 +20,7 @@ exports.getAllArticles = async (req, res) => {
 };
 
 exports.getArticleById = async (req, res) => {
+  
   req.params.id = "67c5b614a8e585c2a1d1c9bc";
   try {
     const article = await Article.findById(req.params.id);    
