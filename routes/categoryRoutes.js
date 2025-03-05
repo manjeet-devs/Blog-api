@@ -1,16 +1,25 @@
 const express = require("express");
 const Category = require("../models/Category");
+const upload = require("../middleware/multer");
+const { uploadImage } = require("../service/imageService/cloudnary")
 
 const router = express.Router();
 
 // ✅ Create Category
-router.post("/", async (req, res) => {
+router.post("/",upload.single("featureImage") , async (req, res) => {
   try {
+
+   const response = await uploadImage(req.file.path);
+    req.body.featureImage = response.url;
+    console.log(req.body);
+    
     const category = new Category(req.body);
     await category.save();
     res.status(201).json(category);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log("reachedd", error);
+    
+    res.status(400).json({ error: "vgjheamgfiukgehjf" });
   }
 });
 
