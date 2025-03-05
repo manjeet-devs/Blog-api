@@ -8,7 +8,7 @@ exports.appObject = async (req, res) => {
     const user = await verifyToken(req, res);
     
     const data = [{
-        "islogin" : user ? true : false
+        "islogin" : user && Object.keys(user).length > 0  ? true : false
     }]
     res.status(200).json(data);
   } catch (error) {
